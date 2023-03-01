@@ -35,12 +35,12 @@ public class BootstrapData implements CommandLineRunner {
 		book boosave = bookRepository.save(boo);
 		
 		Author ruskin = new Author();
-		shake.setFirstName("Ruskin");
-		shake.setLastName("Bond");
+		ruskin.setFirstName("Ruskin");
+		ruskin.setLastName("Bond");
 		
 		book loo = new book();
-		boo.setTitle("Moustrap");
-		boo.setIsbn("888888");
+		loo.setTitle("Moustrap");
+		loo.setIsbn("888888");
 		
 		Author ruskinsave = authorRepository.save(ruskin);
 		book loosave = bookRepository.save(loo);
