@@ -8,4 +8,6 @@ import com.udemy.springframework.entities.Beer;
 public interface BeerService {
 	List<Beer> listofBeers();
 	Beer getBeerbyId(UUID id);
+	Beer addBeer(Beer beer);
+	Beer updateBeer(Beer beer);
 }

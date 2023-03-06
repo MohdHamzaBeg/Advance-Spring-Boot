@@ -8,4 +8,6 @@ import com.udemy.springframework.entities.Customer;
 public interface CustomerService {
 	List<Customer> listofCustomers();
 	Customer getCustomerbyID(UUID id);
+	Customer saveCustomer(Customer customer);
+	Customer updateCustomer(Customer customer);
 }
