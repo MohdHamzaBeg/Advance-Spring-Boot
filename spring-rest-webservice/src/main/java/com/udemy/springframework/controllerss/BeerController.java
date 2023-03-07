@@ -21,10 +21,11 @@ import com.udemy.springframework.entities.Beer;
 import com.udemy.springframework.services.BeerService;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/beers")
 public class BeerController {
