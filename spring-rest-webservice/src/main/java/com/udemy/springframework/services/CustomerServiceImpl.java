@@ -5,23 +5,24 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
-import com.udemy.springframework.entities.Customer;
+import com.udemy.springframework.models.CustomerModel;
 
-@Service
+//@Service
 public class CustomerServiceImpl implements CustomerService {
 	
-	private Map<UUID, Customer> customermap;
+	private Map<UUID, CustomerModel> customermap;
 	
 	
 
 	public CustomerServiceImpl() {
-		this.customermap = new HashMap<UUID, Customer>();
+		this.customermap = new HashMap<UUID, CustomerModel>();
 		
-		Customer customer1 = Customer.builder().
+		CustomerModel customer1 = CustomerModel.builder().
 							id(UUID.randomUUID()).
 							customerName("Bevda").
 							version(11.1f).
@@ -29,7 +30,7 @@ public class CustomerServiceImpl implements CustomerService {
 							lastModifiedDate(LocalDateTime.now())
 							.build();
 		
-		Customer customer2 = Customer.builder().
+		CustomerModel customer2 = CustomerModel.builder().
 				id(UUID.randomUUID()).
 				customerName("Nashedi").
 				version(31.1f).
@@ -37,7 +38,7 @@ public class CustomerServiceImpl implements CustomerService {
 				lastModifiedDate(LocalDateTime.now())
 				.build();
 		
-		Customer customer3 = Customer.builder().
+		CustomerModel customer3 = CustomerModel.builder().
 				id(UUID.randomUUID()).
 				customerName("Bhand").
 				version(81.1f).
@@ -51,18 +52,18 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public List<Customer> listofCustomers() {
-		return new ArrayList<Customer>(customermap.values());
+	public List<CustomerModel> listofCustomers() {
+		return new ArrayList<CustomerModel>(customermap.values());
 	}
 
 	@Override
-	public Customer getCustomerbyID(UUID id) {
-		return customermap.get(id);
+	public Optional<CustomerModel> getCustomerbyID(UUID id) {
+		return Optional.of(customermap.get(id));
 	}
 
 	@Override
-	public Customer saveCustomer(Customer customer) {
-		Customer savedCustomer = Customer.builder()
+	public CustomerModel saveCustomer(CustomerModel customer) {
+		CustomerModel savedCustomer = CustomerModel.builder()
 				.id(UUID.randomUUID())
 				.customerName(customer.getCustomerName())
 				.createdDate(LocalDateTime.now())
@@ -75,7 +76,7 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public Customer updateCustomer(Customer customer) {
+	public CustomerModel updateCustomer(CustomerModel customer) {
 		customer.setCreatedDate(LocalDateTime.now());
 		customer.setLastModifiedDate(LocalDateTime.now());
 		

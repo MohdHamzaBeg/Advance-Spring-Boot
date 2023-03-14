@@ -1,6 +1,7 @@
 package com.udemy.springframework.controllerss;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.udemy.springframework.entities.Beer;
-import com.udemy.springframework.entities.Customer;
+import com.udemy.springframework.models.BeerModel;
+import com.udemy.springframework.models.CustomerModel;
 import com.udemy.springframework.services.CustomerService;
 
 import lombok.AllArgsConstructor;
@@ -30,19 +31,19 @@ public class CustomerController {
 	private CustomerService customerService;
 	
 	@GetMapping("/list")
-	public List<Customer> listofCustomers(){
+	public List<CustomerModel> listofCustomers(){
 		return customerService.listofCustomers();
 	}
 	
 	@GetMapping("/{customerid}")
-	public Customer getCustomerById(@PathVariable("customerid") UUID id) {
-		return customerService.getCustomerbyID(id);
+	public CustomerModel getCustomerById(@PathVariable("customerid") UUID id) {
+		return customerService.getCustomerbyID(id).orElseThrow(NotFoundException::new);
 	}
 	
 	@PostMapping("/saveCustomer")
-	public ResponseEntity saveCustomer(@RequestBody Customer customer) {
+	public ResponseEntity saveCustomer(@RequestBody CustomerModel customer) {
 		
-		Customer savedCustomer = customerService.saveCustomer(customer);
+		CustomerModel savedCustomer = customerService.saveCustomer(customer);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("CustomerName and ID", savedCustomer.getCustomerName()+" "+savedCustomer.getId());
 		
@@ -50,11 +51,11 @@ public class CustomerController {
 	}
 	
 	@PutMapping("/update/{customerid}")
-	public ResponseEntity updateBeer(@PathVariable("customerid") UUID id, @RequestBody Customer customer) {
+	public ResponseEntity updateBeer(@PathVariable("customerid") UUID id, @RequestBody CustomerModel customer) {
 		
-		Customer existingbeer = customerService.getCustomerbyID(id);
-		customer.setId(existingbeer.getId());
-		Customer updatedcustomer = customerService.updateCustomer(customer);
+		CustomerModel existingcustomer = customerService.getCustomerbyID(id).orElseThrow(NotFoundException::new);
+		customer.setId(existingcustomer.getId());
+		CustomerModel updatedcustomer = customerService.updateCustomer(customer);
 		
 		return new ResponseEntity(HttpStatus.NO_CONTENT);
 	}

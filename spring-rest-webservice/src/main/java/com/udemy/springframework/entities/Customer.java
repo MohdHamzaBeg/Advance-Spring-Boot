@@ -1,18 +1,31 @@
 package com.udemy.springframework.entities;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Version;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Builder
-@Data
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Customer {
-	private UUID id;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
 	private String customerName;
 	private float version;
 	private LocalDateTime createdDate;
 	private LocalDateTime lastModifiedDate;
-
 }

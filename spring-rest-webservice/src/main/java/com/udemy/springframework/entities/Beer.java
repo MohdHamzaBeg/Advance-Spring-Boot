@@ -2,18 +2,30 @@ package com.udemy.springframework.entities;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Builder
-@Data
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Beer {
-	private UUID id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	private String beerName;
 	private BigDecimal price;
 	private LocalDateTime mfg;
-	private LocalDateTime exp;
-	
+
 }
