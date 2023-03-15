@@ -8,5 +8,5 @@ import com.udemy.springframework.models.CustomerModel;
 @Mapper
 public interface CustomerMapper {
 	Customer customerModeltocustomer(CustomerModel customerModel);
-	CustomerModel cutstomertocustomerModel(Customer customer);
+	CustomerModel customertocustomerModel(Customer customer);
 }

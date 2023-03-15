@@ -3,6 +3,7 @@ package com.udemy.springframework.services;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -17,17 +18,19 @@ import lombok.RequiredArgsConstructor;
 @Primary
 @RequiredArgsConstructor
 public class CustomerServiceJPA implements CustomerService {
-	private CustomerRepository customerRepository;
-	private CustomerMapper customerMapper;
+	private final CustomerRepository customerRepository;
+	private final CustomerMapper customerMapper;
 	@Override
 	public List<CustomerModel> listofCustomers() {
-		return null;
+		return customerRepository.findAll()
+				.stream()
+				.map(customerMapper::customertocustomerModel)
+				.collect(Collectors.toList());
 	}
 
 	@Override
-	public Optional<CustomerModel> getCustomerbyID(UUID id) {
-		// TODO Auto-generated method stub
-		return Optional.empty();
+	public Optional<CustomerModel> getCustomerbyID(long id) {
+		return Optional.ofNullable(customerMapper.customertocustomerModel(customerRepository.findById(id).orElse(null)));
 	}
 
 	@Override

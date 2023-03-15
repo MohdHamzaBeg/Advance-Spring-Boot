@@ -30,9 +30,9 @@ public class BeerControllerIntegrationTest {
 	
 	@Test
 	void getbeerbyid() {
-		//Beer beer = beerRepository.findAll().get(1);
+		Beer beer = beerRepository.findAll().get(1);
 		
-		BeerModel beerModel = beerController.getBeerById(1);
+		BeerModel beerModel = beerController.getBeerById(beer.getId());
 		
 		assertThat(beerModel).isNotNull();
 	}

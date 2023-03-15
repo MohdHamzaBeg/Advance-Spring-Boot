@@ -36,7 +36,7 @@ public class CustomerController {
 	}
 	
 	@GetMapping("/{customerid}")
-	public CustomerModel getCustomerById(@PathVariable("customerid") UUID id) {
+	public CustomerModel getCustomerById(@PathVariable("customerid") long id) {
 		return customerService.getCustomerbyID(id).orElseThrow(NotFoundException::new);
 	}
 	
@@ -51,7 +51,7 @@ public class CustomerController {
 	}
 	
 	@PutMapping("/update/{customerid}")
-	public ResponseEntity updateBeer(@PathVariable("customerid") UUID id, @RequestBody CustomerModel customer) {
+	public ResponseEntity updateBeer(@PathVariable("customerid") long id, @RequestBody CustomerModel customer) {
 		
 		CustomerModel existingcustomer = customerService.getCustomerbyID(id).orElseThrow(NotFoundException::new);
 		customer.setId(existingcustomer.getId());
