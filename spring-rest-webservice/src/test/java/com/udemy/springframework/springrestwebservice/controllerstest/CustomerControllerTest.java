@@ -51,7 +51,7 @@ public class CustomerControllerTest {
 	
 	@Test
 	public void getcustomerbyidnotfound() throws Exception {
-		given(customerService.getCustomerbyID(any(Long.class))).willReturn(Optional.empty());
+		given(customerService.getCustomerbyID(any(Integer.class))).willReturn(Optional.empty());
 		
 		mockMvc.perform(get("/customers/"+UUID.randomUUID()))
 		.andExpect(status().isNotFound());
@@ -60,7 +60,7 @@ public class CustomerControllerTest {
 	@Test
 	void getCustomerbyId() throws Exception {
 		CustomerModel testcustomer = customerServiceImpl.listofCustomers().get(0);
-		given(customerService.getCustomerbyID(any(Long.class))).willReturn(Optional.of(testcustomer));
+		given(customerService.getCustomerbyID(any(Integer.class))).willReturn(Optional.of(testcustomer));
 		
 		mockMvc.perform(get("/customers/"+testcustomer.getId())
 				.accept(MediaType.APPLICATION_JSON))

@@ -23,7 +23,7 @@ import lombok.Setter;
 public class Beer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private int id;
 	private String beerName;
 	private BigDecimal price;
 	private LocalDateTime mfg;

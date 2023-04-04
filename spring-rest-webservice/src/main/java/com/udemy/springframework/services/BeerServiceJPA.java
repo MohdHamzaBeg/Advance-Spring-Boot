@@ -24,7 +24,7 @@ public class BeerServiceJPA implements BeerService{
 
 	private final BeerRepository beerRepository;
 	
-	@Autowired
+	
 	private final BeerMapper beerMapper;
 
 	@Override
@@ -35,20 +35,18 @@ public class BeerServiceJPA implements BeerService{
 				.collect(Collectors.toList());
 	}
 	@Override
-	public Optional<BeerModel> getBeerbyId(long id) {
+	public Optional<BeerModel> getBeerbyId(int id) {
 		return Optional.ofNullable(beerMapper.beertoBeerModel(beerRepository.findById(id).orElse(null)));
 	}
 
 	@Override
 	public BeerModel addBeer(BeerModel beer) {
-		// TODO Auto-generated method stub
-		return null;
+		return beerMapper.beertoBeerModel(beerRepository.save(beerMapper.beerModeltoBeer(beer)));
 	}
 
 	@Override
 	public BeerModel updateBeer(BeerModel beer) {
-		// TODO Auto-generated method stub
-		return null;
+		return beerMapper.beertoBeerModel(beerRepository.save(beerMapper.beerModeltoBeer(beer)));
 	}
 
 }

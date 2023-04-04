@@ -8,7 +8,7 @@ import com.udemy.springframework.models.BeerModel;
 
 public interface BeerService {
 	List<BeerModel> listofBeers();
-	Optional<BeerModel> getBeerbyId(long id);
+	Optional<BeerModel> getBeerbyId(int id);
 	BeerModel addBeer(BeerModel beer);
 	BeerModel updateBeer(BeerModel beer);
 }

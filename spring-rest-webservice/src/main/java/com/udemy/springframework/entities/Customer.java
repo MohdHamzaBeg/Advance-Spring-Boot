@@ -23,7 +23,7 @@ public class Customer {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private int id;
 	private String customerName;
 	private float version;
 	private LocalDateTime createdDate;

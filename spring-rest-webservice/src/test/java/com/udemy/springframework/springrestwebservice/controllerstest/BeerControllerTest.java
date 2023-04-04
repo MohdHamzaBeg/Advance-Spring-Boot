@@ -57,7 +57,7 @@ public class BeerControllerTest {
 	
 	@Test
 	public void getbeerbyidnotfound() throws Exception {
-		given(beerService.getBeerbyId(any(Long.class))).willReturn(Optional.empty());
+		given(beerService.getBeerbyId(any(Integer.class))).willReturn(Optional.empty());
 		
 		mockMvc.perform(get("/beers/"+UUID.randomUUID()))
 		.andExpect(status().isNotFound());
@@ -66,7 +66,7 @@ public class BeerControllerTest {
 	@Test
 	void getbeerbyid() throws Exception {
 		BeerModel testbeer = beerServiceImpl.listofBeers().get(0); 
-		given(beerService.getBeerbyId(any(Long.class))).willReturn(Optional.of(testbeer));
+		given(beerService.getBeerbyId(any(Integer.class))).willReturn(Optional.of(testbeer));
 		// Below, we are creating a mock request for getBeerbyID method with the acceptable request type JSON and expected return type status
 		mockMvc.perform(get("/beers/"+testbeer.getId())
 				.accept(MediaType.APPLICATION_JSON))

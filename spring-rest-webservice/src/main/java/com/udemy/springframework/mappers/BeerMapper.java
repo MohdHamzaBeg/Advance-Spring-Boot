@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import com.udemy.springframework.entities.Beer;
 import com.udemy.springframework.models.BeerModel;
 
-@Mapper
+@Mapper 
 public interface BeerMapper {
 	Beer beerModeltoBeer(BeerModel beerModel);
 	BeerModel beertoBeerModel(Beer beer);

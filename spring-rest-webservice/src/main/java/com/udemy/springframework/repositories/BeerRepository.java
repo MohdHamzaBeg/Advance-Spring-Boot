@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 
 import com.udemy.springframework.entities.Beer;
 
-public interface BeerRepository extends JpaRepository<Beer, Long> {
+public interface BeerRepository extends JpaRepository<Beer, Integer> {
 }

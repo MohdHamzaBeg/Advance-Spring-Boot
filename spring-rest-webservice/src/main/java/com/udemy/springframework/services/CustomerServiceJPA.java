@@ -29,7 +29,7 @@ public class CustomerServiceJPA implements CustomerService {
 	}
 
 	@Override
-	public Optional<CustomerModel> getCustomerbyID(long id) {
+	public Optional<CustomerModel> getCustomerbyID(int id) {
 		return Optional.ofNullable(customerMapper.customertocustomerModel(customerRepository.findById(id).orElse(null)));
 	}
 
