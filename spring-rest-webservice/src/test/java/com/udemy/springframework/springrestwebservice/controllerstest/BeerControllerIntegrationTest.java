@@ -2,6 +2,7 @@ package com.udemy.springframework.springrestwebservice.controllerstest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -46,7 +47,7 @@ public class BeerControllerIntegrationTest {
 	
 	@Test
 	void savenewBeer() {
-		BeerModel model = BeerModel.builder().beerName("Daaru").build();
+		BeerModel model = BeerModel.builder().beerName("Daaru").price(new BigDecimal(5656)).build();
 		ResponseEntity<BeerModel> responseEntity = beerController.saveBeer(model);
 		//assertThat(responseEntity).isNotNull();
 		assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.valueOf(201));
