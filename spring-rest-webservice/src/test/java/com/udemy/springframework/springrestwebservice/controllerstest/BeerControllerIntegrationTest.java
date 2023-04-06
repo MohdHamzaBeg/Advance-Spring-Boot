@@ -33,7 +33,7 @@ public class BeerControllerIntegrationTest {
 	void testlistofbeers() {
 		List<BeerModel> beermodels = beerController.getBeersList();
 		
-		assertThat(beermodels.size()).isEqualTo(3);
+		assertThat(beermodels.size()).isEqualTo(2413);
 	}
 	
 	@Test

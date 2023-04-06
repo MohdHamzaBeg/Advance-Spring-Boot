@@ -1,17 +1,28 @@
 package com.udemy.springframework.bootstrap;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ResourceUtils;
 
 import com.udemy.springframework.entities.Beer;
 import com.udemy.springframework.entities.Customer;
+import com.udemy.springframework.models.BeerCSV;
 import com.udemy.springframework.repositories.BeerRepository;
 import com.udemy.springframework.repositories.CustomerRepository;
+import com.udemy.springframework.services.BeerCSVservice;
 
+import jakarta.transaction.Transactional;
+
+@Transactional
 @Component
 public class BootstrapData implements CommandLineRunner{
 	
@@ -20,11 +31,29 @@ public class BootstrapData implements CommandLineRunner{
 	
 	@Autowired
 	CustomerRepository customerRepository;
-
+	
+	@Autowired
+	BeerCSVservice beerCSVservice;
 	@Override
 	public void run(String... args) throws Exception {
 		forBeers();
+		forBeerCSV();
 		forcustomers();
+	}
+
+	private void forBeerCSV() throws FileNotFoundException {
+		if(beerRepository.count()<10) {
+			File file = ResourceUtils.getFile("classpath:csvdata/beers.csv");
+			List<BeerCSV> recs = beerCSVservice.convertCSV(file);
+			
+			recs.forEach(beerCSV->{
+				beerRepository.save(Beer.builder()
+						.beerName(StringUtils.abbreviate(beerCSV.getBeer(), 50))
+						.price(BigDecimal.TEN)// Not using a beerCSV because there is not such field with the data type as same as price
+						.mfg(LocalDateTime.now())// Same reason for not using beercsv
+						.build());
+			});
+		}
 	}
 
 	private void forcustomers() {
