@@ -8,6 +8,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -31,9 +32,9 @@ public class BeerControllerIntegrationTest {
 	
 	@Test
 	void testlistofbeers() {
-		List<BeerModel> beermodels = beerController.getBeersList();
+		Page<BeerModel> beermodels = beerController.getBeersList("Tuborg", BigDecimal.valueOf(23.67), null, null);
 		
-		assertThat(beermodels.size()).isEqualTo(2413);
+		assertThat(beermodels.getContent().size()).isEqualTo(1);
 	}
 	
 	@Test

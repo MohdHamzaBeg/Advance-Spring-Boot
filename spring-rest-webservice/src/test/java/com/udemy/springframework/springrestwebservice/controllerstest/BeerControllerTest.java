@@ -65,7 +65,7 @@ public class BeerControllerTest {
 	
 	@Test
 	void getbeerbyid() throws Exception {
-		BeerModel testbeer = beerServiceImpl.listofBeers().get(0); 
+		BeerModel testbeer = beerServiceImpl.listofBeers(null, null, null, null).get(0); 
 		given(beerService.getBeerbyId(any(Integer.class))).willReturn(Optional.of(testbeer));
 		// Below, we are creating a mock request for getBeerbyID method with the acceptable request type JSON and expected return type status
 		mockMvc.perform(get("/beers/"+testbeer.getId())
@@ -77,7 +77,7 @@ public class BeerControllerTest {
 	
 	@Test
 	void listofbeers() throws Exception {
-		given(beerService.listofBeers()).willReturn(beerServiceImpl.listofBeers());
+		given(beerService.listofBeers(null, null, null, null)).willReturn(beerServiceImpl.listofBeers(null, null, null, null));
 		
 		mockMvc.perform(get("/beers/list")
 				.accept(MediaType.APPLICATION_JSON))
@@ -88,10 +88,10 @@ public class BeerControllerTest {
 	@Test
 	void createbeer() throws Exception {
 		
-		BeerModel testbeer = beerServiceImpl.listofBeers().get(0);
+		BeerModel testbeer = beerServiceImpl.listofBeers(null, null, null, null).get(0);
 		testbeer.setId(null);
 		
-		given(beerService.addBeer(any(BeerModel.class))).willReturn(beerServiceImpl.listofBeers().get(1));
+		given(beerService.addBeer(any(BeerModel.class))).willReturn(beerServiceImpl.listofBeers(null, null, null, null).get(1));
 		
 		mockMvc.perform(post("/beers/saveBeer")
 				.accept(MediaType.APPLICATION_JSON)
@@ -102,7 +102,7 @@ public class BeerControllerTest {
 	
 	@Test
 	void updatebeer() throws Exception {
-		BeerModel testbeer = beerServiceImpl.listofBeers().get(1);
+		BeerModel testbeer = beerServiceImpl.listofBeers(null, null, null, null).get(1);
 		
 		mockMvc.perform(put("/beers/update/"+UUID.randomUUID())
 				.accept(MediaType.APPLICATION_JSON)
