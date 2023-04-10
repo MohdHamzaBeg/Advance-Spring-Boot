@@ -47,7 +47,7 @@ public class BeerServiceJPA implements BeerService{
 		else if(StringUtils.hasText(beerName)&&price!=null) {
 			beerpage = beerRepository.findAllByBeerNameIsLikeIgnoreCaseAndPrice(beerName, price,pageRequest);
 		}
-		else if(price!=null&&!StringUtils.hasText(beerName)) {
+		else if(price!=null &&!StringUtils.hasText(beerName)) {
 			beerpage = beerRepository.findAllByPrice(price,pageRequest);
 		}
 		else {
