@@ -22,12 +22,12 @@ public class BeerClientImplTest {
 	@Autowired
 	BeerClientImpl beerClient;
 
-	//@Test
+	@Test
 	void listBeers() {
 		beerClient.getBeerslist("ALE");
 	}
 	
-	//@Test
+	@Test
 	void getBeerbyid() {
 		Page<BeerModel> beerModels = beerClient.getBeerslist("ALE");
 		BeerModel model = beerModels.getContent().get(0);
@@ -45,7 +45,7 @@ public class BeerClientImplTest {
 		BeerModel savedBeer = beerClient.createBeer(beerModel);
 		assertNotNull(savedBeer);
 	}
-	//@Test
+	@Test
 	void updateBeer() {
 		Page<BeerModel> beerModels = beerClient.getBeerslist("ALE");
 		BeerModel model = beerModels.getContent().get(0);

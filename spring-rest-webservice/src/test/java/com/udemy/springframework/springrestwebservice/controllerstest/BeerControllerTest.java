@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.ContentResultMatchers;
 import org.springframework.web.client.HttpClientErrorException.NotFound;
@@ -30,6 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
+import com.udemy.springframework.config.SpringSecurityConfig;
 import com.udemy.springframework.controllerss.BeerController;
 import com.udemy.springframework.controllerss.NotFoundException;
 import com.udemy.springframework.models.BeerModel;
@@ -37,6 +39,7 @@ import com.udemy.springframework.services.BeerService;
 import com.udemy.springframework.services.BeerServiceImpl;
 
 @WebMvcTest(BeerController.class)
+@Import(SpringSecurityConfig.class)
 public class BeerControllerTest {
 	@Autowired
 	MockMvc mockMvc;
@@ -60,6 +63,7 @@ public class BeerControllerTest {
 		given(beerService.getBeerbyId(any(Integer.class))).willReturn(Optional.empty());
 		
 		mockMvc.perform(get("/beers/"+UUID.randomUUID()))
+		.with(httpBasic(user1, password))
 		.andExpect(status().isNotFound());
 	}
 	
@@ -69,6 +73,7 @@ public class BeerControllerTest {
 		given(beerService.getBeerbyId(any(Integer.class))).willReturn(Optional.of(testbeer));
 		// Below, we are creating a mock request for getBeerbyID method with the acceptable request type JSON and expected return type status
 		mockMvc.perform(get("/beers/"+testbeer.getId())
+				.with(httpBasic(user1, password))
 				.accept(MediaType.APPLICATION_JSON))
 		// The content method used below will check the test and map the returned value which it will find. Here, it is mapping the 
 		// given() method which returning a BeerModel object
@@ -80,6 +85,7 @@ public class BeerControllerTest {
 		given(beerService.listofBeers(null, null, null, null)).willReturn(beerServiceImpl.listofBeers(null, null, null, null));
 		
 		mockMvc.perform(get("/beers/list")
+				.with(httpBasic(user1, password))
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON));
@@ -94,6 +100,7 @@ public class BeerControllerTest {
 		given(beerService.addBeer(any(BeerModel.class))).willReturn(beerServiceImpl.listofBeers(null, null, null, null).get(1));
 		
 		mockMvc.perform(post("/beers/saveBeer")
+				.with(httpBasic(user1, password))
 				.accept(MediaType.APPLICATION_JSON)
 					.contentType(MediaType.APPLICATION_JSON)
 					.content(mapper.writeValueAsString(testbeer)))
@@ -105,6 +112,7 @@ public class BeerControllerTest {
 		BeerModel testbeer = beerServiceImpl.listofBeers(null, null, null, null).get(1);
 		
 		mockMvc.perform(put("/beers/update/"+UUID.randomUUID())
+				.with(httpBasic(user1, password))
 				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(mapper.writeValueAsString(testbeer)))

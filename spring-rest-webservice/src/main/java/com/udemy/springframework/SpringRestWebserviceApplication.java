@@ -11,3 +11,4 @@ public class SpringRestWebserviceApplication {
 	}
 
 }
+// Note- Refactor the tests to allow them to accept the JWT tokens
