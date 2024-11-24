@@ -1,0 +1,34 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9000
+  cloud:
+    gateway:
+      routes:
+        - id: spring-rest-webservice
+          uri: http://localhost:8081
+          predicates:
+            - Path=/v1/** #Basic configuration of gateway to add a port
+        - id: spring-reactive
+          uri: http://localhost:8082
+          predicates:
+            - Path=/v2/**
+        - id: spring-reactive-mongo
+          uri: http://localhost:8083
+          predicates:
+            - Path=/v3/**
+            
+       #THE FOLLOWING COMMENTED CODE IS TO JUST ENABLE LOGGING SO THAT IF THERE IS ANY ERROR
+       #WE COULD EASY FIGURE OUT USING CONSOLE
+#      httpserver:
+#        wiretap: true
+#      httpclient:
+#        wiretap: true
+#logging:
+#  level:
+#    root: error
+#    reactor.netty: trace
+#    org.springframework.cloud.gateway: trace
+#    org.springframework.http.server.reactive: trace

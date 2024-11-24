@@ -31,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/beers")
+@RequestMapping("/v1/beers")
 public class BeerController {
 	
 	@Autowired

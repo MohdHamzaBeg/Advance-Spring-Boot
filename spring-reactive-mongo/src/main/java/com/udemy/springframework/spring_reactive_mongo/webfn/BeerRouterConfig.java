@@ -2,6 +2,7 @@ package com.udemy.springframework.spring_reactive_mongo.webfn;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
@@ -14,8 +15,8 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 @Configuration
 @RequiredArgsConstructor
 public class BeerRouterConfig {
-	public static final String BEER_PATH = "/beer";
-	public static final String BEER_PATH_ID = "/beer/{id}";
+	public static final String BEER_PATH = "/v3/beer";
+	public static final String BEER_PATH_ID = "/v3/beer/{id}";
 	
 	private final BeerHandler handler;
 	

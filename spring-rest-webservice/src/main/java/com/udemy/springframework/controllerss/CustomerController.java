@@ -24,7 +24,7 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/customers")
+@RequestMapping("/v1/customers")
 public class CustomerController {
 	
 	@Autowired
