@@ -1,0 +1,26 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://auth-server:9000
+  cloud:
+    gateway:
+      routes:
+        - id: spring-rest-webservice
+          uri: http://rest-mvc:8080
+          predicates:
+            - Path=/v1/** #Basic configuration of gateway to add a port
+        - id: spring-reactive
+          uri: http://reactive:8080
+          predicates:
+            - Path=/v2/**
+        - id: spring-reactive-mongo
+          uri: http://reactive-mongo:8080
+          predicates:
+            - Path=/v3/**
+        - id: spring-authorization-server
+          uri: http://auth-server:9000
+          predicates:
+            - Path=/oauth2/**
+            

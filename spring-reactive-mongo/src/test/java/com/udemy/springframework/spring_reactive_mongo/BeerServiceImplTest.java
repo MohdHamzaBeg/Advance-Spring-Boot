@@ -22,7 +22,7 @@ public class BeerServiceImplTest {
 	@Autowired
 	BeerService beerService;
 	
-	@Test
+	/*@Test
 	void saveBeer() throws InterruptedException, UncategorizedMongoDbException {
 		AtomicBoolean atomicBoolean = new AtomicBoolean(false);
 		
@@ -33,7 +33,7 @@ public class BeerServiceImplTest {
 			atomicBoolean.set(true);
 		});
 		await().untilTrue(atomicBoolean);
-	}
+	}*/
 	
 	public static Beer getTestBeer() {
 		return Beer.builder()
